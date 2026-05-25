@@ -46,7 +46,7 @@ path(
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
-    path('u_home/',views.user_home,name='u_home'),
+    path('',views.user_home,name='u_home'),
     path('menu/', views.menu, name='menu'),
     path('product/<int:id>/',views.product_details, name='product_details'),
 
