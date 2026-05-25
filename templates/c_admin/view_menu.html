@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management</title>
+    <!-- Assuming you will place the new CSS in this file -->
+    <link rel="stylesheet" href="{% static 'css/c_admin/view.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body >
+    
+    {% include 'nav.html' %}
+        <div class="main_content1">
+
+
+    <div class="main_content">
+    <div class="admin_panel_container">
+        <div class="top_bar">
+            <h1>Menu Items</h1>
+            <a href="/add_menu/" class="add_btn">+ Add New Item</a>
+        </div>
+
+        {% if products %}
+        <div class="card_grid">
+            {% for i in products %}
+            <div class="menu_item_card">
+                <div class="card_content">
+                    <!-- Product Image -->
+                    <div class="product_img_container">
+                        <img src="{{ i.photo.url }}" alt="{{ i.name }}">
+                    </div>
+
+                    <!-- Item Details -->
+                    <div class="item_details">
+                        <div class="title_price_row">
+                            <h3 class="product_name">{{ i.name }}</h3>
+                            <p class="price_text">${{ i.price }}</p>
+                        </div>
+                        <p class="desc_text">{{ i.description|truncatechars:80 }}</p>
+                        <div class="meta_info">
+                            <p class="cat_label">Category: <span class="cat_value">{{ i.category.name }}</span></p>
+                            <span class="id_badge">#ID: {{ i.id }}</span>
+                        </div>
+                        <div class="action_section">
+                            <p class="action_title">Actions</p>
+                            <div class="action_btns">
+                                <a href="/edit_menu/{{ i.id }}" class="edit_btn">Edit</a>
+                                <a href="/delete_menu/{{ i.id }}" class="delete_btn">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty_state">
+            <h2>No items found.</h2>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

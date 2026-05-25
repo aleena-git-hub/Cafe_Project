@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Google Fonts & Chart.js -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header & Filters */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            padding: 0.35rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+            background-color: var(--bg-main);
+        }
+
+        /* Filter active styling tip: You can dynamically add an 'active' class via Django context if needed */
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: #fff;
+        }
+
+        /* Sections & Grid Layouts */
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Metric Cards */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Specific Highlight Colors for key metrics */
+        .card.sales .card-value { color: var(--primary); }
+        .card.pending .card-value { color: var(--warning); }
+        .card.delivered .card-value { color: var(--success); }
+
+        /* Charts Layout */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .chart-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-container {
+            position: relative;
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+        }
+        .home_icon{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #f5c16c;
+    color: black;
+    padding: 10px 14px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.home_icon:hover{
+    transform: scale(1.1);
+    background: #ffd98c;
+}
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .chart-box { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <!-- HEADER & FILTERS -->
+        <header>
+            <a href="/home" class="home_icon">
+            <i class="fa fa-home"></i>
+            </a><br>
+            <h1>Admin Dashboard</h1>
+            <div class="filter-group">
+                <a href="{% url 'admin_dashboard' %}" class="filter-btn">Total</a>
+                <a href="?filter=today" class="filter-btn">Today</a>
+                <a href="?filter=week" class="filter-btn">This Week</a>
+            </div>
+        </header>
+
+        <!-- ORDER DETAILS SECTION -->
+        <section>
+            <h2>Order Overview</h2>
+            <div class="stats-grid">
+                 <div class="card">
+                    <div class="card-label">Total Category</div>
+                    <div class="card-value">{{ total_category }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Orders</div>
+                    <div class="card-value">{{ total_orders }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Products</div>
+                    <div class="card-value">{{ total_products }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Users</div>
+                    <div class="card-value">{{ total_users }}</div>
+                </div>
+                <div class="card sales">
+                    <div class="card-label">Total Sales</div>
+                    <div class="card-value">₹{{ total_sales|default:"0" }}</div>
+                </div>
+                <div class="card pending">
+                    <div class="card-label">Pending Orders</div>
+                    <div class="card-value">{{ pending_orders }}</div>
+                </div>
+                <div class="card delivered">
+                    <div class="card-label">Delivered Orders</div>
+                    <div class="card-value">{{ delivered_orders }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLE DETAILS SECTION -->
+        <section>
+            <h2>Table & Bookings Overview</h2>
+            <div class="stats-grid">
+                <div class="card">
+                    <div class="card-label">Total Tables</div>
+                    <div class="card-value">{{ total_tables }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Seats</div>
+                    <div class="card-value">{{ total_seats }}</div>
+                </div>
+                <div class="card text-primary">
+                    <div class="card-label">Today's Bookings</div>
+                    <div class="card-value">{{ today_bookings }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Reserved Tables</div>
+                    <div class="card-value">{{ reserved_tables }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUAL ANALYTICS (CHARTS) -->
+        <section class="charts-grid">
+            
+            <!-- ORDER CHART BOX -->
+            <div class="chart-box">
+                <h2>Orders Performance</h2>
+                <div class="chart-container">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+            </div>
+
+            <!-- TABLE CHART BOX -->
+            <div class="chart-box">
+                <h2>Table Allocation Status</h2>
+                <div class="chart-container">
+                    <canvas id="tableChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- ORDER CHART SCRIPT -->
+    <script>
+        const pendingOrders = parseInt('{{ pending_orders|default:"0" }}');
+        const deliveredOrders = parseInt('{{ delivered_orders|default:"0" }}');
+
+        const ctx = document.getElementById('ordersChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Pending Orders', 'Delivered Orders'],
+                datasets: [{
+                    label: 'Count',
+                    data: [pendingOrders, deliveredOrders],
+                    backgroundColor: ['rgba(245, 158, 11, 0.85)', 'rgba(16, 185, 129, 0.85)'],
+                    borderColor: ['rgb(245, 158, 11)', 'rgb(16, 185, 129)'],
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9' },
+                        ticks: { color: '#64748b' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b' }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- TABLE CHART SCRIPT -->
+    <script>
+        const totalTables = parseInt('{{ total_tables|default:"0" }}');
+        const reservedTables = parseInt('{{ reserved_tables|default:"0" }}');
+        const availableTables = Math.max(0, totalTables - reservedTables);
+
+        const tableCtx = document.getElementById('tableChart').getContext('2d');
+        new Chart(tableCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Reserved Tables', 'Available Tables'],
+                datasets: [{
+                    data: [reservedTables, availableTables],
+                    backgroundColor: ['rgba(79, 70, 229, 0.85)', 'rgba(226, 232, 240, 0.85)'],
+                    borderColor: ['rgb(79, 70, 229)', 'rgb(203, 213, 225)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 20, color: '#64748b' }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

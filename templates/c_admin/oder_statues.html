@@ -1,0 +1,307 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Orders</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height: 100vh;
+            background:
+            linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+            url("https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            color: white;
+        }
+
+        .container{
+            width: 95%;
+            margin: auto;
+        }
+
+        .title{
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: #f5c16c;
+            letter-spacing: 2px;
+        }
+
+        .table-box{
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead{
+            background-color: rgba(245, 193, 108, 0.2);
+        }
+
+        th{
+            padding: 20px;
+            text-align: left;
+            color: #f5c16c;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        td{
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 16px;
+            color: #f1f1f1;
+            vertical-align: middle;
+        }
+
+        tr:hover{
+            background-color: rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .items{
+            line-height: 1.8;
+        }
+
+        .price{
+            color: #7CFC00;
+            font-weight: bold;
+        }
+
+        select{
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.12);
+            color: white;
+            outline: none;
+            cursor: pointer;
+        }
+
+        select option{
+            color: black;
+        }
+
+        button{
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f5c16c;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover{
+            background-color: #ffda95;
+            transform: scale(1.05);
+        }
+
+        form{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        @media(max-width: 900px){
+
+            body{
+                padding: 20px;
+            }
+
+            .title{
+                font-size: 30px;
+            }
+
+            table{
+                font-size: 14px;
+            }
+
+            th, td{
+                padding: 12px;
+            }
+
+            form{
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+    .header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+<body>
+        {% include 'nav.html' %}
+
+
+    <div class="container">
+
+        <h1 class="title">
+            Pending Orders
+        </h1>
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Ordered Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+
+                    <tr>
+
+                        <td>
+                            #{{ order.id }}
+                        </td>
+
+                        <td>
+                            {{ order.customer_name }}
+                        </td>
+
+                        <td class="items">
+
+                            {% for item in order.orderitem_set.all %}
+
+                                {{ item.product.name }}
+
+                                ({{ item.quantity }})
+
+                                <br>
+
+                            {% endfor %}
+
+                        </td>
+
+                        <td class="price">
+                            ₹ {{ order.total_amount }}
+                        </td>
+
+                        <td>
+
+                            <form method="POST" action="{% url 'update_order_status' order.id %}">
+
+                                {% csrf_token %}
+
+                                <select name="status">
+
+                                    <option value="Pending"
+                                    {% if order.status == 'Pending' %}selected{% endif %}>
+                                        Pending
+                                    </option>
+
+                                    <option value="Preparing"
+                                    {% if order.status == 'Preparing' %}selected{% endif %}>
+                                        Preparing
+                                    </option>
+
+                                    <option value="Packing"
+                                    {% if order.status == 'Packing' %}selected{% endif %}>
+                                        Packing
+                                    </option>
+
+                                    <option value="Out for Delivery"
+                                    {% if order.status == 'Out for Delivery' %}selected{% endif %}>
+                                        Out for Delivery
+                                    </option>
+
+                                    <option value="Delivered"
+                                    {% if order.status == 'Delivered' %}selected{% endif %}>
+                                        Delivered
+                                    </option>
+
+                                    <option value="Cancelled"
+                                    {% if order.status == 'Cancelled' %}selected{% endif %}>
+                                        Cancelled
+                                    </option>
+
+                                </select>
+
+                        </td>
+
+                        <td>
+
+                                <button type="submit">
+                                    Update
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

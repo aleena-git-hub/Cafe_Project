@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/nav_bar.css' %}">
+
+
+</head>
+
+<body>
+    {% include 'nav.html' %}
+    <main>
+          
+
+        <section class="hero">
+           <div class="video-container">
+           <video autoplay muted loop playsinline id="background-video">
+            <source src="{% static 'videos/banner1.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+            </video>
+            <div class="hero_text">
+            <h1>Bene  Haven Cafe</h1>
+            <h2>Fresh Coffee • Sweet Moments • Cozy Vibes
+</h2>
+           <div class="hero_btn">
+           <a href="{% url 'view_menu' %}"> <button class="btn1">Explore Menu</button></a>
+            <!--<button class="btn2">Book Table</button>-->
+            </div> </div>
+           </div>
+        </section>
+       
+        <section class="products">
+         <h2>Our Products</h2>
+         <div class="item">
+            <img src="{% static 'photo/coffe menu.jpg' %}" alt="">
+            <h3>Coffee</h3>
+         </div>
+        
+         <div class="item">
+            <img src="https://i.pinimg.com/1200x/32/f8/fb/32f8fb3d6bfffc0330d5f47b06d1b313.jpg" alt="">
+            <h3>Pizza</h3>
+        </div>
+         <div class="item">
+            <img src="https://i.pinimg.com/736x/6a/7f/ad/6a7fade83b65a8c1a1a09b2be500f7c8.jpg" alt="">
+            <h3>Sandwich</h3>
+         </div>
+<div class="view-more-container">
+    <a href="{% url 'view_menu' %}">View More</a>
+</div>        </section>
+        <section class="timing">
+        <h2>Opening Hours</h2>
+            <div class="cont">
+            <img src="https://i.pinimg.com/736x/c2/6e/93/c26e930f6356a41fdcc6ea7efe8091df.jpg" alt="">
+           <p><span>Monday - Saturday :</span><br> 7:00 AM - 8:00 PM</p>
+
+            <p><span>Sunday :</span><br> Closed</p>
+            </div>
+        </section>
+        <section class="about" id="about">
+            <h2>About Us</h2>
+            <p>
+Welcome to Bene Cafe — a perfect place for coffee lovers and food enthusiasts.
+We believe every cup of coffee should bring comfort, happiness, and connection.
+From handcrafted beverages to freshly baked desserts, everything is prepared
+with quality ingredients and love.
+
+</p>
+            <section class="about_cafe_pic">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop" alt="Cafe Interior">
+                <img src="https://i.pinimg.com/736x/48/9d/19/489d1942eaf9479fabe27012791f67cb.jpg" alt="">
+                
+                <img src="{% static 'photo/gallery4.jpg' %}" alt="">
+                <img src="https://i.pinimg.com/736x/b1/23/82/b123827c24131a9e05c83d6c3d520b4b.jpg" alt="">
+                <img src="{% static 'photo/gallery1.jpg' %}" alt="">
+                <img src="{% static 'photo/gallery5.jpg' %}" alt="">
+                <img src="https://i.pinimg.com/736x/48/e6/74/48e674bfd043d678ea10e2f680c03048.jpg" alt="">
+
+                <img src="{% static 'photo/gallery.jpg' %}" alt="">
+                <img src="{% static 'photo/gallery2.jpg' %}" alt="">
+                <img src="https://i.pinimg.com/736x/6e/07/e6/6e07e60868603cfce5327f96449a0566.jpg" alt="" >
+                <img src="{% static 'photo/gallery3.jpg' %}" alt="">
+                <img src="{% static 'photo/gallery6.jpg' %}" alt="">
+
+            </section>
+
+        </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <div class="card">
+            <i class="fa-solid fa-mug-saucer"></i>
+            <h2>Premium Coffee</h2>
+            <p>Freshly brewed coffee made from quality beans.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-cake-candles"></i>
+            <h2>Tasty Desserts</h2>
+            <p>Enjoy cakes, pastries, and delicious snacks.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-wifi"></i>
+            <h2>Free WiFi</h2>
+            <p>Work, relax, and stay connected anytime.</p>
+        </div>
+
+    </section>
+           <section class="contact">
+            <h2>Visit us</h2>
+                            
+
+            <div class="contact_box">
+                <div class="con_address">
+            <address>
+                <h3>Bene Haven Cafe</h3>             
+
+        <p>
+            FC Road, Pune <br>
+            Maharashtra, India
+        </p>
+                   <a href="tel:+91 98765 43210"> Phone: +91 98765 43210</a>
+
+
+       
+</address></div>
+<div class="pic">
+<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/b5/ea/50/je-bent-jezelf-niet-als.jpg?w=900&h=500&s=1" alt="dd">
+</div></div>
+        </section>
+    </main>
+    
+
+    <footer class="footer">
+
+    <!-- LEFT -->
+    <div class="footer_left">
+        <h2>Bene Haven Cafe</h2>
+
+        <p>
+            FC Road, Pune <br>
+            Maharashtra, India
+        </p>
+
+        <p>
+            Phone: +91 98765 43210
+        </p>
+    </div>
+
+
+    <!-- CENTER -->
+    <div class="footer_center">
+
+        <h3>Quick Links</h3>
+
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Menu</a></li>
+            <li><a href="">Gallery</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+
+    </div>
+
+
+    <!-- RIGHT -->
+    <div class="footer_right">
+
+        <h3>Follow Us</h3>
+
+        <div class="social_icons">
+
+            <a href="https://instagram.com">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://facebook.com">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+
+            <a href="https://twitter.com">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+
+            <a href="https://youtube.com">
+                <i class="fa-brands fa-youtube"></i>
+            </a> </div>
+<p class="copyright">
+   <br> 2026 © Copyright Reserved
+</p><br>
+<p>This project was created for educational purposes.</p>       
+
+    </div>
+
+</footer>
+    
+</body>
+</html>

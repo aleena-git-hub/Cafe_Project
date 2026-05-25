@@ -1,0 +1,133 @@
+/* Container styling */
+body {
+   margin: 0;
+    min-height: 100vh;
+
+    background-image: url("https://images.unsplash.com/photo-1453614512568-c4024d13c247?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29mZmVlJTIwc2hvcHxlbnwwfHwwfHx8MA%3D%3D") ;
+
+    
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* Dark Overlay */
+body::after{
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.425);
+
+    z-index: -1;
+}
+.vie_category {
+    width: 100%;
+    max-width: 800px;
+        transform: translateY(-150px);
+
+   
+}
+
+h1 {
+    color: #fabd66;
+    margin-bottom: 20px;
+}
+
+/* Table Styling based on image_3b9f38.png */
+.ctg_table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+   
+}
+
+/* Header styling */
+thead tr {
+    background-color: #e2eefd; /* Light blue from the image */
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+th, td {
+    padding: 18px 20px;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #f8fbff;
+}
+
+tbody tr:hover {
+    background-color: #c4934951;
+}
+
+td {
+    color: #727475;
+    font-weight: 500;
+    
+}
+
+/* Link Styling */
+a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn-delete {
+    color: #e53e3e;
+    
+}
+
+.btn-edit {
+    color: #3182ce;
+}
+
+.no-data {
+    padding: 40px;
+    text-align: center;
+    color: #718096;
+}
+
+.header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}

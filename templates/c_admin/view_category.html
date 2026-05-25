@@ -1,0 +1,52 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Category List</title>
+        <link rel="stylesheet" href="{% static 'css/c_admin/view_cat.css' %}">
+
+    </head>
+    <body>
+                    {% include 'nav.html' %}
+
+        {% csrf_token %}
+            <div class="main_content">
+
+<div class="vie_category">
+            <h1>All Categories</h1>
+        <div class="ctg_table">
+        <table >
+    {% if categories %}
+<table>
+                <thead>
+                    <tr>
+                        <th>CATEGORY NAME</th>
+                        <th>DELETE</th>
+                        <th>EDIT</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for i in categories %}
+    <tr>
+        <td>
+            <h3>{{ i.name }}</h3></td>
+            <td><a href="/delete_category/{{ i.id }}">Delete</a>
+            </td><td> <a href="/edit_cate/{{ i.id }}"> Edit
+                </a></td>
+
+    </tr>
+        {% endfor %}
+
+                </tbody>
+            </table>
+    {% else %}
+
+        <h2>No Categories Found</h2>
+
+    {% endif %}
+    </div>
+    </div></div>
+    </body>
+    </html>

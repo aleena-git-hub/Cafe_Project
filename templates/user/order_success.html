@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Success</title>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            padding:20px;
+
+            background:
+            linear-gradient(rgba(17,12,8,0.88),
+            rgba(17,12,8,0.88)),
+            url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+        }
+
+        /* MAIN CARD */
+
+        .success-card{
+            width:100%;
+            max-width:470px;
+
+            background:rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(12px);
+
+            border-radius:30px;
+
+            padding:45px 35px;
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            box-shadow:0 15px 35px rgba(0,0,0,0.35);
+
+            text-align:center;
+
+            color:white;
+
+            animation:fadeUp 0.6s ease;
+        }
+
+        /* ICON */
+
+        .icon-box{
+            width:95px;
+            height:95px;
+
+            margin:auto auto 25px;
+
+            border-radius:50%;
+
+            background:rgba(76,175,80,0.15);
+
+            border:2px solid rgba(76,175,80,0.3);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .icon-box i{
+            font-size:42px;
+
+            color:#6edb75;
+        }
+
+        /* TITLE */
+
+        .success-card h1{
+            font-size:34px;
+
+            margin-bottom:15px;
+
+            color:#f7c08a;
+        }
+
+        .success-card p{
+            color:#ddd;
+
+            font-size:16px;
+
+            line-height:1.7;
+
+            margin-bottom:35px;
+        }
+
+        /* ORDER INFO */
+
+        .info-box{
+            background:rgba(255,255,255,0.06);
+
+            border-radius:18px;
+
+            padding:18px;
+
+            margin-bottom:30px;
+        }
+
+        .info-box h3{
+            color:#f7c08a;
+
+            margin-bottom:8px;
+
+            font-size:18px;
+        }
+
+        .info-box span{
+            color:#ccc;
+
+            font-size:14px;
+        }
+
+        /* BUTTONS */
+
+        .btn-group{
+            display:flex;
+            flex-direction:column;
+
+            gap:15px;
+        }
+
+        .btn{
+            text-decoration:none;
+
+            padding:16px;
+
+            border-radius:15px;
+
+            font-size:16px;
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        /* PRIMARY BUTTON */
+
+        .btn-primary{
+            background:#c97b36;
+
+            color:white;
+        }
+
+        .btn-primary:hover{
+            background:#a86024;
+
+            transform:translateY(-2px);
+        }
+
+        /* SECONDARY BUTTON */
+
+        .btn-secondary{
+            background:rgba(255,255,255,0.08);
+
+            color:white;
+
+            border:1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover{
+            background:rgba(255,255,255,0.15);
+        }
+
+        /* ANIMATION */
+
+        @keyframes fadeUp{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+
+        }
+
+        /* MOBILE */
+
+        @media(max-width:500px){
+
+            .success-card{
+                padding:35px 25px;
+            }
+
+            .success-card h1{
+                font-size:28px;
+            }
+
+            .success-card p{
+                font-size:15px;
+            }
+
+            .icon-box{
+                width:80px;
+                height:80px;
+            }
+
+            .icon-box i{
+                font-size:35px;
+            }
+
+        }
+
+   
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+
+<main class="success-card">
+
+    <!-- SUCCESS ICON -->
+
+    <div class="icon-box">
+
+        <i class="fa-solid fa-check"></i>
+
+    </div>
+
+    <!-- TITLE -->
+
+    <h1>
+
+        Order Placed Successfully
+
+    </h1>
+
+    <p>
+
+        Thank you for ordering from our cafe ☕
+        <br>
+        Your delicious food is being prepared with care.
+
+    </p>
+
+    <!-- INFO -->
+
+    <div class="info-box">
+
+        <h3>
+
+            Estimated Delivery
+
+        </h3>
+
+        <span>
+
+            20 - 30 Minutes
+
+        </span>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="btn-group">
+
+        <a href="{% url 'menu' %}"
+           class="btn btn-primary">
+
+            Continue Shopping
+
+        </a>
+
+        <a href="{% url 'my_orders' %}"
+           class="btn btn-secondary">
+
+            My Orders
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

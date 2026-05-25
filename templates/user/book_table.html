@@ -1,0 +1,736 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reserve Your Table</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- GOOGLE FONT -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            padding:40px 20px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            /* Premium warm slate-white background from your reference image layout */
+ background:
+            linear-gradient(rgba(0,0,0,0.70),
+            rgba(0,0,0,0.72)),
+            url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop");
+            overflow-x:hidden;
+        }
+
+        /* MAIN SYSTEM CARD WRAPPER */
+
+        .booking-wrapper{
+            width:100%;
+            max-width:1200px;
+            display:grid;
+            grid-template-columns:460px 1fr;
+            background:#615f5f9b;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 30px 70px rgba(0,0,0,0.07);
+            border: 1px solid #eae6e1;
+            animation:fadeUp 0.6s ease;
+        }
+
+        /* LEFT SIDE - COMPACT ROUNDED IMAGE CARD CONTAINER (IMAGE 1 STYLE) */
+
+        .left-side{
+            margin:20px;
+            padding:50px 40px;
+            position:relative;
+            background:
+            linear-gradient(rgba(0,0,0,0.1),
+            rgba(0,0,0,0.75)),
+            url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1974&auto=format&fit=crop");
+            background-size:cover;
+            background-position:center;
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-end;
+            border-radius:16px; /* Smooth card inner layout boundary */
+            min-height: 600px;
+        }
+
+        .brand{
+            position:relative;
+            z-index:2;
+
+        }
+
+        .brand h1{
+            font-size:38px;
+            color:#ffffff;
+            line-height:1.2;
+            margin-bottom:15px;
+            font-weight:700;
+            letter-spacing:-0.5px;
+        }
+
+        .brand p{
+            color:rgba(255,255,255,0.85);
+            line-height:1.7;
+            font-size:14px;
+            max-width:400px;
+        }
+
+        /* DYNAMIC EMBEDDED NOTICES COMPONENT */
+
+        .quote-panel {
+            position:relative;
+            z-index:2;
+            margin-top:30px;
+            width:100%;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(12px);
+            -webkit-backdrop-filter:blur(12px);
+            border:1px solid rgba(255,255,255,0.12);
+            border-radius:12px;
+            padding:18px;
+        }
+
+        .quote-panel h3 {
+            display:none; /* Kept structured but hidden to lean into minimalist image look */
+        }
+
+        .quote-container {
+            display:flex;
+            flex-direction:column;
+        }
+
+        .quote-main-text {
+            color:#ffffff;
+            font-size:13px;
+            line-height:1.6;
+            font-style:italic;
+            transition:opacity 0.4s ease;
+        }
+
+        .quote-signature {
+            margin-top:8px;
+            color:#f7c08a;
+            font-size:11px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            text-align:right;
+            transition:opacity 0.4s ease;
+        }
+
+        /* RIGHT SIDE - CLEAN CONTAINER FORM (IMAGE 1 + IMAGE 2 MIXED) */
+
+        .right-side{
+            padding:60px 70px;
+            background:#5b5b5b2d;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        /* HEADER ACCENT BAR SCHEME (FROM THE TOP LINES IN IMAGE 1) */
+
+        .form-header{
+            margin-bottom:45px;
+            text-align:center;
+            position:relative;
+            border-top:1px solid #1a1715;
+            border-bottom:1px solid #1a1715;
+            padding:15px 0;
+        }
+
+        .form-header h2{
+            font-size:34px;
+            color:#180e01;
+            font-weight:700;
+            letter-spacing:-0.5px;
+        }
+
+        .form-header p{
+            display:none; /* Clean title override */
+        }
+
+        /* ERROR REPORTING COMPONENT */
+
+        .error-box{
+            background:#fff5f5;
+            border:1px solid #fed7d7;
+            color:#c53030;
+            padding:16px;
+            border-radius:10px;
+            margin-bottom:25px;
+            font-size:14px;
+            font-weight:500;
+        }
+
+        /* THE 2-COLUMN INPUT MATRIX ROW BLOCKS */
+
+        form {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            column-gap:24px;
+            row-gap:28px;
+        }
+
+        .form-group{
+            margin-bottom:0px;
+            position:relative;
+        }
+
+        /* Textarea rows & primary submission CTA stretch across 2 grid channels */
+        .form-group:nth-last-of-type(1),
+        .submit-btn {
+            grid-column: span 2;
+        }
+
+        .form-group label{
+            display:block;
+            margin-bottom:10px;
+            color:#fdfaf6;
+            font-size:12px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:1px;
+        }
+
+        .input-box{
+            position:relative;
+        }
+
+        /* Clean, non-intrusive icons aligned beautifully left */
+        .input-box i{
+            position:absolute;
+            top:50%;
+            left:0px;
+            transform:translateY(-50%);
+            color:#b39999;
+            font-size:15px;
+            transition: 0.25s ease;
+        }
+
+        /* UNDERLINE ENTRY FIELD FORM FACTOR (ELEGANT INTERPRETATION OF IMAGE 2) */
+        .form-group input,
+        .form-group textarea{
+            width:100%;
+            padding:14px 10px 14px 28px;
+            border:none;
+            outline:none;
+            border-radius:0px;
+            background:transparent;
+            border-bottom:1px solid #d0c9c0;
+            color:#ffffff;
+            font-size:18px;
+            transition:0.25s ease;
+        }
+
+        .form-group textarea{
+            min-height:90px;
+            resize:none;
+            padding-top:12px;
+        }
+
+        .form-group textarea + i{
+            top:18px;
+            transform:none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder{
+            color:#b59805;
+            opacity:0.5;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus{
+            border-bottom-color:#1a1715;
+            box-shadow:none;
+            background:transparent;
+        }
+
+        .form-group input:focus + i,
+        .form-group textarea:focus + i{
+            color:#1a1715;
+        }
+
+        /* CTA RESERVATION SUBMISSION BUTTON (IMAGE 1 + IMAGE 2 INSPIRED DARK LUXE FINISH) */
+
+        .submit-btn{
+            width:100%;
+            border:none;
+            padding:18px;
+            border-radius:4px;
+            background:#1a1715; /* Clean solid high contrast dark shade */
+            color:#ffffff;
+            font-size:14px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:2px;
+            cursor:pointer;
+            transition:0.25s ease;
+            margin-top:15px;
+        }
+
+        .submit-btn:hover{
+            background:#552a03; /* Luxury bronze-gold tone swap on hover interaction */
+            color:#ffffff;
+        }
+
+        .submit-btn i{
+            margin-right:10px;
+            font-size:13px;
+        }
+
+        /* PROPOSAL ACCEPTANCE CARD SYSTEM */
+
+        .proposal-card{
+            grid-column: span 2;
+            background:#fcfbfa;
+            border-radius:12px;
+            padding:28px;
+            border:1px solid #eae6e1;
+        }
+
+        .proposal-card h3{
+            color:#1a1715;
+            font-size:22px;
+            font-weight:600;
+            margin-bottom:12px;
+        }
+
+        .proposal-card p{
+            color:#665f58;
+            line-height:1.6;
+            font-size:14px;
+        }
+
+        .table-list{
+            margin:20px 0;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+        }
+
+        .table-item{
+            background:#ffffff;
+            padding:16px 20px;
+            border-radius:6px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            color:#1a1715;
+            border:1px solid #eae6e1;
+            font-size:14px;
+        }
+
+        .seat-count{
+            color:#c2946a;
+            font-weight:600;
+        }
+
+        .total-seat{
+            margin-top:10px;
+            color:#1a1715;
+            font-size:16px;
+            font-weight:600;
+            border-top:1px solid #eae6e1;
+            padding-top:16px;
+        }
+
+        .action-buttons{
+            margin-top:28px;
+            display:flex;
+            gap:15px;
+        }
+
+        .confirm-btn,
+        .cancel-btn{
+            flex:1;
+            text-align:center;
+            text-decoration:none;
+            padding:16px;
+            border-radius:4px;
+            font-weight:600;
+            font-size:13px;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            transition:0.25s;
+        }
+
+        .confirm-btn{
+            border:none;
+            background:#1a1715;
+            color:white;
+            cursor:pointer;
+        }
+
+        .confirm-btn:hover{
+            background:#c2946a;
+        }
+
+        .cancel-btn{
+            background:#ffffff;
+            color:#554f49;
+            border:1px solid #d0c9c0;
+        }
+
+        .cancel-btn:hover{
+            background:#fcfbfa;
+            color:#1a1715;
+            border-color:#1a1715;
+        }
+
+        /* BOTTOM DATA ROOT SHORTCUTS */
+
+        .bottom-link{
+            grid-column: span 2;
+            text-align:center;
+            margin-top:30px;
+        }
+
+        .bottom-link a{
+            color:#c2946a;
+            text-decoration:none;
+            font-weight:600;
+            font-size:13px;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            transition: color 0.25s;
+        }
+
+        .bottom-link a:hover{
+            color:#1a1715;
+        }
+
+        /* ANIMATION DESIGN ELEMENTS */
+
+        @keyframes fadeUp{
+            from{
+                opacity:0;
+                transform:translateY(24px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* RESPONSION LAYOUT STACK MEDIA QUERIES */
+
+        @media(max-width:1024px){
+            .booking-wrapper{
+                grid-template-columns:1fr;
+                max-width:650px;
+            }
+            .left-side{
+                min-height:300px;
+                margin:20px 20px 0 20px;
+            }
+            .right-side{
+                padding:45px 40px;
+            }
+            .quote-panel {
+                display:none;
+            }
+        }
+
+        @media(max-width:600px){
+            form {
+                grid-template-columns:1fr;
+                row-gap:24px;
+            }
+            .form-group:nth-last-of-type(1),
+            .submit-btn {
+                grid-column: span 1;
+            }
+            .action-buttons{
+                flex-direction:column;
+            }
+            .form-header h2{
+                font-size:28px;
+            }
+            .right-side {
+                padding: 40px 24px;
+            }
+        }
+
+   
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+
+<div class="booking-wrapper">
+
+    <div class="left-side">
+
+        <div class="brand">
+
+            <h1>
+                Reserve<br>
+                Your Perfect<br>
+                Cafe Moment ☕
+            </h1>
+
+            <p>
+                Enjoy handcrafted coffee, delicious food,
+                and a warm ambience. Book your table now
+                for a relaxing and memorable experience.
+            </p>
+
+        </div>
+
+        <div class="quote-panel">
+            <div class="quote-container">
+                <span class="quote-main-text" id="quote-text">
+                    "Coffee is a language in itself."
+                </span>
+                <span class="quote-signature" id="quote-author">
+                    — Jackie Chan
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="right-side">
+
+        {% if show_proposal %}
+
+        <div class="form-header">
+            <h2>Seating Available</h2>
+        </div>
+
+        <div class="proposal-card">
+
+            <h3>Table Combination</h3>
+
+            <p>
+                We can combine these tables
+                for <strong>{{ guests }}</strong> guests.
+            </p>
+
+            <div class="table-list">
+
+                <div class="table-item">
+                    <span>Table #{{ table1.table_number }}</span>
+                    <span class="seat-count">{{ table1.seats }} Seats</span>
+                </div>
+
+                <div class="table-item">
+                    <span>Table #{{ table2.table_number }}</span>
+                    <span class="seat-count">{{ table2.seats }} Seats</span>
+                </div>
+
+            </div>
+
+            <div class="total-seat">
+                Total Capacity : {{ total_seats }} Seats
+            </div>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="action-buttons">
+
+                    <button type="submit"
+                            name="accept_combination"
+                            class="confirm-btn">
+                        Confirm Reservation
+                    </button>
+
+                    <a href="{% url 'book_table' %}"
+                       class="cancel-btn">
+                        Modify Options
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        {% else %}
+
+        <div class="form-header">
+            <h2>Reserve a Table</h2>
+        </div>
+
+        {% if error_message %}
+        <div class="error-box">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Number of Guests</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-users"></i>
+                    <input type="number"
+                           name="guests"
+                           min="1"
+                           max="30"
+                           placeholder="Enter party size"
+                           required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Booking Date</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-calendar"></i>
+                    <input type="date"
+                           id="booking_date"
+                           name="booking_date"
+                           required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Booking Time</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-clock"></i>
+                    <input type="time"
+                           name="booking_time"
+                           required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Special Requests</label>
+                <div class="input-box">
+                    <textarea name="special_request"
+                              placeholder="Leave a comment or special request..."></textarea>
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fa-solid fa-calendar-check"></i>
+                Find Table
+            </button>
+
+        </form>
+
+        {% endif %}
+
+        <div class="bottom-link">
+            <a href="{% url 'my_bookings' %}">
+                View My Existing Bookings
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const datePicker = document.getElementById('booking_date');
+
+    if(datePicker){
+        datePicker.min = new Date().toISOString().split('T')[0];
+    }
+
+    // Dynamic Micro-Quote Machine Array
+    const quotes = [
+        { text: '"Coffee is a language in itself."', author: "— Jackie Chan" },
+        { text: '"Good communication is just as stimulating as black coffee."', author: "— Anne Morrow Lindbergh" },
+        { text: '"Behind every successful person is a substantial amount of coffee."', author: "— Anonymous" },
+        { text: '"To me, the smell of fresh-made coffee is one of the greatest inventions."', author: "— Hugh Jackman" }
+    ];
+
+    let currentQuoteIndex = 0;
+    const quoteTextEl = document.getElementById('quote-text');
+    const quoteAuthorEl = document.getElementById('quote-author');
+
+    if(quoteTextEl && quoteAuthorEl) {
+        setInterval(() => {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            
+            quoteTextEl.style.opacity = 0;
+            quoteAuthorEl.style.opacity = 0;
+            
+            setTimeout(() => {
+                quoteTextEl.textContent = quotes[currentQuoteIndex].text;
+                quoteAuthorEl.textContent = quotes[currentQuoteIndex].author;
+                quoteTextEl.style.opacity = 1;
+                quoteAuthorEl.style.opacity = 1;
+            }, 400);
+        }, 6000);
+    }
+
+</script>
+
+</body>
+
+</html>

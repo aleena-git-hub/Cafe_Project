@@ -1,0 +1,463 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Payment</title>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            padding:20px;
+
+            background:
+            linear-gradient(rgba(17,12,8,0.88),
+            rgba(17,12,8,0.88)),
+            url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+        }
+
+        /* MAIN CARD */
+
+        .payment-card{
+            width:100%;
+            max-width:430px;
+
+            background:rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(12px);
+
+            border-radius:28px;
+
+            padding:35px 30px;
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            box-shadow:0 15px 35px rgba(0,0,0,0.35);
+
+            color:white;
+        }
+
+        /* BACK BUTTON */
+
+        .back-link{
+            display:inline-block;
+
+            margin-bottom:25px;
+
+            color:#f7c08a;
+
+            text-decoration:none;
+
+            font-size:14px;
+            font-weight:500;
+        }
+
+        /* HEADER */
+
+        .header{
+            text-align:center;
+
+            margin-bottom:30px;
+        }
+
+        .lock-icon{
+            width:70px;
+            height:70px;
+
+            margin:auto auto 18px;
+
+            border-radius:50%;
+
+            background:rgba(255,255,255,0.08);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            font-size:30px;
+        }
+
+        .header h2{
+            font-size:32px;
+
+            margin-bottom:10px;
+
+            color:#f7c08a;
+        }
+
+        .method{
+            color:#ddd;
+
+            font-size:15px;
+        }
+
+        .method span{
+            color:#f7c08a;
+            font-weight:600;
+        }
+
+        /* AMOUNT */
+
+        .amount-box{
+            background:rgba(255,255,255,0.06);
+
+            border-radius:18px;
+
+            padding:20px;
+
+            text-align:center;
+
+            margin-bottom:30px;
+        }
+
+        .amount-box p{
+            color:#bbb;
+
+            font-size:13px;
+
+            margin-bottom:6px;
+        }
+
+        .amount{
+            font-size:38px;
+
+            font-weight:700;
+
+            color:#f7c08a;
+        }
+
+        /* FORM */
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        .form-group label{
+            display:block;
+
+            margin-bottom:8px;
+
+            color:#eee;
+
+            font-size:14px;
+            font-weight:500;
+        }
+
+        .form-group input{
+            width:100%;
+
+            padding:15px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:14px;
+
+            background:rgba(255,255,255,0.1);
+
+            color:white;
+
+            font-size:15px;
+
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .form-group input::placeholder{
+            color:#bbb;
+        }
+
+        .card-row{
+            display:flex;
+            gap:15px;
+        }
+
+        .card-row .form-group{
+            flex:1;
+        }
+
+        /* BUTTON */
+
+        .pay-btn{
+            width:100%;
+
+            padding:17px;
+
+            border:none;
+
+            border-radius:15px;
+
+            background:#c97b36;
+
+            color:white;
+
+            font-size:16px;
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+            margin-top:10px;
+        }
+
+        .pay-btn:hover{
+            background:#a86024;
+
+            transform:translateY(-2px);
+        }
+
+        /* FOOTER */
+
+        .footer{
+            margin-top:22px;
+
+            text-align:center;
+
+            color:#aaa;
+
+            font-size:12px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:500px){
+
+            .payment-card{
+                padding:28px 22px;
+            }
+
+            .header h2{
+                font-size:28px;
+            }
+
+            .amount{
+                font-size:32px;
+            }
+
+            .card-row{
+                flex-direction:column;
+                gap:0;
+            }
+
+        }
+
+    
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+
+<div class="payment-card">
+
+    <a href="javascript:history.back()"
+       class="back-link">
+
+        ← Back
+
+    </a>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="lock-icon">
+
+            🔒
+
+        </div>
+
+        <h2>
+
+            Secure Payment
+
+        </h2>
+
+        <div class="method">
+
+            Method :
+            <span>{{ order.payment_method }}</span>
+
+        </div>
+
+    </div>
+
+    <!-- AMOUNT -->
+
+    <div class="amount-box">
+
+        <p>
+
+            Amount To Pay
+
+        </p>
+
+        <div class="amount">
+
+            ₹{{ order.total_amount }}
+
+        </div>
+
+    </div>
+
+    <!-- FORM -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <!-- UPI -->
+
+        {% if order.payment_method == "UPI" %}
+
+        <div class="form-group">
+
+            <label>
+
+                UPI ID
+
+            </label>
+
+            <input type="text"
+                   placeholder="username@okhdfcbank"
+                   required>
+
+        </div>
+
+        {% endif %}
+
+        <!-- CARD -->
+
+        {% if order.payment_method == "Card" %}
+
+        <div class="form-group">
+
+            <label>
+
+                Card Number
+
+            </label>
+
+            <input type="text"
+                   placeholder="1234 5678 9101 1121"
+                   required>
+
+        </div>
+
+        <div class="card-row">
+
+            <div class="form-group">
+
+                <label>
+
+                    Expiry
+
+                </label>
+
+                <input type="text"
+                       placeholder="MM/YY"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+
+                    CVV
+
+                </label>
+
+                <input type="password"
+                       placeholder="123"
+                       maxlength="3"
+                       required>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- BUTTON -->
+
+        <button type="submit"
+                class="pay-btn">
+
+            Pay ₹{{ order.total_amount }}
+
+        </button>
+
+    </form>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        Secure encrypted payment gateway
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

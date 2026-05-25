@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bene Cafe Navbar</title>
+
+    <link rel="stylesheet" href="{% static 'css/nav_bar.css' %}">
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="header">
+
+    <a class="logo" href="/home">
+        <h1>Bene Cafe</h1>
+    </a>
+
+    <!-- MOBILE MENU BUTTON -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
+    </div>
+
+    <nav class="nav" id="navMenu">
+
+        <a href="/home">Home</a>
+        <a href="#about">About</a>
+
+        <div class="dropdown">
+            <a href="#">Menu</a>
+            <div class="dropdown-content">
+                <a href="{% url 'add_menu' %}">Add Menu</a>
+                <a href="{% url 'view_menu' %}">View Menu</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="#">Category</a>
+            <div class="dropdown-content">
+                <a href="{% url 'add_cat' %}">Add Category</a>
+                <a href="{% url 'view_cat' %}">View Category</a>
+            </div>
+        </div>
+
+        <a href="{% url 'a_view_review' %}">Review</a>
+
+        <div class="dropdown">
+            <a href="#">Orders</a>
+            <div class="dropdown-content">
+                <a href="{% url 'view_pending_orders' %}">Pending</a>
+                <a href="{% url 'view_delivered_orders' %}">Delivered</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <a href="#">Table</a>
+            <div class="dropdown-content">
+                <a href="{% url 'add_table' %}">Add Table</a>
+                <a href="{% url 'view_table_booking' %}">Bookings</a>
+            </div>
+        </div>
+
+        <a href="{% url 'admin_dashboard' %}" class="btn">Dashboard</a>
+
+
+    </nav>
+</header>
+
+<script>
+function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

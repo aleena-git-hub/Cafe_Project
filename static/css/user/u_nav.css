@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== HEADER ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(20, 7, 1);
+    height: 90px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    padding: 0 20px;
+}
+
+/* ===== LOGO ===== */
+.logo {
+    text-decoration: none;
+    color: darkgoldenrod;
+    transition: 0.3s;
+}
+
+.logo h1 {
+    font-size: 24px;
+}
+
+.logo:hover {
+    color: rgb(251, 201, 0);
+    transform: scale(1.05);
+}
+
+/* ===== NAV DESKTOP ===== */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #dfba95;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav a:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ICON spacing */
+.nav a i {
+    margin-right: 6px;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+    padding: 10px 22px;
+    border: 2px solid white;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: aliceblue;
+    background-color: #3e1e02;
+    font-weight: bold;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background-color: #e6830b;
+    color: rgb(40, 2, 2);
+}
+.cart-icon{
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
+
+.cart-count{
+    position: absolute;
+
+    top: -10px;
+    right: -10px;
+
+    background: red;
+    color: white;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ===== HAMBURGER ===== */
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 900px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: rgb(20, 7, 1);
+        gap: 20px;
+        padding: 20px 0;
+
+        display: none; /* hidden by default */
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .nuav a {
+        font-size: 18px;
+    }
+}

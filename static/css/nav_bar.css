@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a0c05;
+    height: 80px;
+    padding: 0 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+    text-decoration: none;
+    color: #f5c16c;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    color: #ffd27d;
+}
+
+/* NAV */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+/* LINKS */
+.nav a {
+    text-decoration: none;
+    color: #dfba95;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav a:hover {
+    color: white;
+}
+
+/* BUTTON */
+.btn {
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1px solid #fff;
+    background: #3e1e02;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #f5c16c;
+    color: black;
+}
+
+/* DROPDOWN */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background: #2a1208;
+    min-width: 160px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background: #3e1e02;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ========================= */
+/* MOBILE RESPONSIVE */
+/* ========================= */
+
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* MOBILE VIEW */
+@media (max-width: 900px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: #1a0c05;
+        gap: 0;
+        display: none;
+        padding: 10px 0;
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .nav a, .dropdown {
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        position: static;
+        display: none;
+        background: #2a1208;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+}

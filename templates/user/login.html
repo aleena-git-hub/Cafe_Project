@@ -1,0 +1,324 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f7f5f2;
+            overflow-x: hidden;
+        }
+
+        /* MAIN SYSTEM CARD WRAPPER */
+        .login-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.07);
+            border: 1px solid #eae6e1;
+            animation: fadeUp 0.6s ease;
+        }
+
+        /* LEFT SIDE - COMPACT IMAGE VISUAL CARD */
+        .left-side {
+            margin: 20px;
+            padding: 50px 40px;
+            position: relative;
+            background: 
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.75)),
+                url("https://i.pinimg.com/736x/f4/09/3f/f4093f8c864a104530fb648841c20e64.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 16px;
+            min-height: 500px;
+        }
+
+        .brand-text h2 {
+            font-size: 32px;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* RIGHT SIDE - CONTENT ENGINE INTERFACE */
+        .right-side {
+            padding: 60px 70px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* HEADER ACCENT BAR SCHEME */
+        .form-header {
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid #1a1715;
+            border-bottom: 1px solid #1a1715;
+            padding: 15px 0;
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            color: #1a1715;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* ERROR REPORTING COMPONENT */
+        .error-box {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #c53030;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* SYSTEM CORE FORM STRUCTURE */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .form-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #5c554e;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+            color: #b0a498;
+            font-size: 15px;
+            transition: 0.25s ease;
+        }
+
+        /* ELEGANT UNDERLINE INTERPRETATION INPUTS */
+        .form-group input {
+            width: 100%;
+            padding: 14px 10px 14px 28px;
+            border: none;
+            outline: none;
+            border-radius: 0px;
+            background: transparent;
+            border-bottom: 1px solid #d0c9c0;
+            color: #1a1715;
+            font-size: 15px;
+            transition: 0.25s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #bfa38a;
+            opacity: 0.4;
+        }
+
+        .form-group input:focus {
+            border-bottom-color: #1a1715;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .form-group input:focus + i {
+            color: #1a1715;
+        }
+
+        /* CTA LOG-IN BUTTON ASSEMBLY */
+        .submit-btn {
+            width: 100%;
+            border: none;
+            padding: 18px;
+            border-radius: 4px;
+            background: #1a1715;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover {
+            background: #c2946a;
+            color: #ffffff;
+        }
+
+        /* FOOTER ROOT ACTION LINKS */
+        .bottom-link {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #7a726a;
+        }
+
+        .bottom-link a {
+            color: #c2946a;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 5px;
+            transition: color 0.25s;
+        }
+
+        .bottom-link a:hover {
+            color: #1a1715;
+            text-decoration: underline;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE LAYOUT BREAKPOINTS */
+        @media(max-width: 900px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            .left-side {
+                min-height: 220px;
+                margin: 20px 20px 0 20px;
+            }
+            .right-side {
+                padding: 45px 40px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .right-side {
+                padding: 40px 24px;
+            }
+            .form-header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+
+    <div class="left-side">
+        <div class="brand-text">
+            <h2>Welcome Back</h2>
+            <p>Sign in to manage your premium table arrangements and elite reservations.</p>
+        </div>
+    </div>
+
+    <div class="right-side">
+
+        <div class="form-header">
+            <h1>User Login</h1>
+        </div>
+
+        {% if error %}
+        <div class="error-box">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Username</label>
+                <div class="input-box">
+                    <input type="text" name="username" placeholder="Enter your username" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Login
+            </button>
+        </form>
+
+        <div class="bottom-link">
+            Don't have an account? 
+            <a href="{% url 'register' %}">Create Account</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <!-- Google Fonts for a premium, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.363), rgba(0, 0, 0, 0.45)), url("https://www.indiafoodnetwork.in/h-upload/2025/02/25/1484691-pretty-cafes-cover.webp");
+            color: #3e2723; /* Deep coffee brown text */
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+        }
+
+        /* Page Heading */
+        .page-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 28px;
+            color: #f1c18e;
+            letter-spacing: -0.5px;
+        }
+
+        /* Order Card Box */
+        .order-card {
+            background: #a6a1a1ba;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(62, 39, 35, 0.03);
+            border: 1px solid rgba(111, 78, 55, 0.06);
+        }
+
+        /* Card Header Layout */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px dashed #e6dfd9;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .order-meta h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d1916;
+            margin-bottom: 4px;
+        }
+
+        .order-date {
+            font-size: 13px;
+                        font-weight: 500;
+
+            color: #391f1a;
+        }
+
+        /* Adaptive Status Badges */
+        .status-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            text-transform: capitalize;
+            background-color: #f0ece9; /* Fallback default background */
+            color: #5c4d4a;
+        }
+
+        /* Optional: If your order.status outputs these specific words, they will highlight beautifully */
+        .status-badge:contains("Completed"), .status-badge:contains("Delivered") {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status-badge:contains("Pending"), .status-badge:contains("Preparing") {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        /* Order Items Rows */
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 15px;
+        }
+
+        .item-details {
+            font-weight: 500;
+            color: #150704;
+            font-size: 19px;
+            text-transform: capitalize;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #2d1916;
+            margin-left: auto;
+            margin-right: 16px;
+        }
+
+        /* Inline Add Review Button */
+        .btn-review {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6f4e37;
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid #e6dfd9;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-review:hover {
+            background-color: #6f4e37;
+            color: #ffffff;
+            border-color: #6f4e37;
+        }
+
+        /* Total Section */
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d1916;
+            border-top: 1px solid #f5f0eb;
+            padding-top: 14px;
+            margin-top: 14px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(62, 39, 35, 0.03);
+        }
+
+        .empty-state h2 {
+            font-size: 20px;
+            color: #705c58;
+            font-weight: 600;
+        }
+   
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+<div class="container">
+
+    <h1 class="page-title">My Orders</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+        <div class="order-card">
+
+            <!-- Card Top: Order ID, Date & Status -->
+            <div class="card-header">
+                <div class="order-meta">
+                    <h2>Order #{{ order.id }}</h2>
+                    <p class="order-date">{{ order.ordered_at }}</p>
+                </div>
+                <div class="status-badge">
+                    {{ order.status }}
+                </div>
+            </div>
+
+            <!-- Card Body: Products Ordered -->
+            {% for item in order.orderitem_set.all %}
+            <div class="order-item">
+                <span class="item-details">
+                    {{ item.product.name }} <span style="color: #a1887f; font-size: 13px;">× {{ item.quantity }}</span>
+                </span>
+                
+                <span class="item-price">
+                    ₹{{ item.price }}
+                </span>
+
+                <a href="{% url 'add_review' item.product.id %}" class="btn-review">
+                    Add Review
+                </a>
+            </div>
+            {% endfor %}
+
+            <!-- Card Bottom: Grand Total -->
+            <div class="card-footer">
+                Total: &nbsp;<span style="color: #6f4e37;">₹{{ order.total_amount }}</span>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+        <!-- Empty State View -->
+        <div class="empty-state">
+            <h2>No Orders Yet ☕</h2>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

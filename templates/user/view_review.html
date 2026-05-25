@@ -1,0 +1,499 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Reviews</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+
+            background:
+            linear-gradient(rgba(15,10,6,0.82),
+            rgba(15,10,6,0.88)),
+            url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+
+            padding:60px 20px;
+        }
+
+        /* MAIN CONTAINER */
+
+        .reviews-container{
+            max-width:1100px;
+
+            margin:auto;
+        }
+
+        /* TITLE */
+
+        .page-title{
+            text-align:center;
+
+            margin-bottom:50px;
+        }
+
+        .page-title h1{
+            color:white;
+
+            font-size:52px;
+
+            margin-bottom:15px;
+
+            font-weight:700;
+        }
+
+        .page-title p{
+            color:#d8cfc7;
+
+            font-size:16px;
+        }
+
+        /* REVIEW GRID */
+
+        .reviews-grid{
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(320px,1fr));
+
+            gap:28px;
+        }
+
+        /* REVIEW CARD */
+
+        .review-card{
+            background:rgba(255,255,255,0.96);
+
+            border-radius:28px;
+
+            padding:28px;
+
+            position:relative;
+
+            overflow:hidden;
+
+            box-shadow:0 20px 40px rgba(0,0,0,0.18);
+
+            transition:0.35s;
+        }
+
+        .review-card:hover{
+            transform:translateY(-8px);
+
+            box-shadow:0 25px 45px rgba(0,0,0,0.22);
+        }
+
+        /* TOP BAR */
+
+        .review-top{
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            margin-bottom:22px;
+        }
+
+        /* USER */
+
+        .user-box{
+            display:flex;
+
+            align-items:center;
+
+            gap:14px;
+        }
+
+        .user-avatar{
+            width:55px;
+            height:55px;
+
+            border-radius:18px;
+
+            background:linear-gradient(
+            135deg,
+            #d28a45,
+            #8b5e34
+            );
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
+
+            font-size:20px;
+
+            box-shadow:0 10px 20px rgba(201,123,54,0.25);
+        }
+
+        .user-info h3{
+            color:#2c1e17;
+
+            font-size:18px;
+
+            margin-bottom:4px;
+        }
+
+        .user-info span{
+            color:#8a7a70;
+
+            font-size:13px;
+        }
+
+        /* STARS */
+
+        .rating{
+            color:#ffb400;
+
+            font-size:18px;
+
+            letter-spacing:2px;
+        }
+
+        /* PRODUCT TAG */
+
+        .product-tag{
+            display:inline-block;
+
+            padding:8px 16px;
+
+            border-radius:30px;
+
+            background:#f6efe9;
+
+            color:#9a6233;
+
+            font-size:13px;
+
+            font-weight:600;
+
+            margin-bottom:18px;
+        }
+
+        /* COMMENT */
+
+        .review-text{
+            color:#5f5149;
+
+            line-height:1.9;
+
+            font-size:15px;
+
+            margin-bottom:24px;
+        }
+
+        /* FOOTER */
+
+        .review-footer{
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            border-top:1px solid #eee;
+
+            padding-top:18px;
+        }
+
+        .review-date{
+            color:#9b8f87;
+
+            font-size:13px;
+        }
+
+        .coffee-icon{
+            width:42px;
+            height:42px;
+
+            border-radius:14px;
+
+            background:#f7f1eb;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:#b66b2b;
+
+            font-size:16px;
+        }
+
+        /* EMPTY STATE */
+
+        .empty-box{
+            max-width:500px;
+
+            margin:100px auto;
+
+            background:rgba(255,255,255,0.96);
+
+            padding:50px 30px;
+
+            border-radius:30px;
+
+            text-align:center;
+        }
+
+        .empty-box i{
+            font-size:55px;
+
+            color:#b66b2b;
+
+            margin-bottom:20px;
+        }
+
+        .empty-box h2{
+            color:#2c1e17;
+
+            margin-bottom:10px;
+
+            font-size:30px;
+        }
+
+        .empty-box p{
+            color:#7d6f67;
+
+            line-height:1.7;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:600px){
+
+            .page-title h1{
+                font-size:38px;
+            }
+
+            .review-card{
+                padding:24px;
+            }
+
+            .review-top{
+                flex-direction:column;
+
+                gap:15px;
+            }
+
+        }
+
+   
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+<div class="reviews-container">
+
+    <!-- TITLE -->
+
+    <div class="page-title">
+
+        <h1>
+
+            Customer Reviews
+
+        </h1>
+
+        <p>
+
+            See what our lovely customers say
+            about our cafe ☕
+
+        </p>
+
+    </div>
+
+    {% if reviews %}
+
+    <div class="reviews-grid">
+
+        {% for review in reviews %}
+
+        <!-- REVIEW CARD -->
+
+        <div class="review-card">
+
+            <!-- TOP -->
+
+            <div class="review-top">
+
+                <div class="user-box">
+
+                    <div class="user-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="user-info">
+
+                        <h3>
+
+                            {{ review.customer_name }}
+
+                        </h3>
+
+                        <span>
+
+                            Cafe Customer
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- STARS -->
+
+                <div class="rating">
+
+                    {% if review.rating == 5 %}
+                        ⭐⭐⭐⭐⭐
+                    {% elif review.rating == 4 %}
+                        ⭐⭐⭐⭐
+                    {% elif review.rating == 3 %}
+                        ⭐⭐⭐
+                    {% elif review.rating == 2 %}
+                        ⭐⭐
+                    {% else %}
+                        ⭐
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- PRODUCT -->
+
+            <div class="product-tag">
+
+                ☕ {{ review.product.name }}
+
+            </div>
+
+            <!-- COMMENT -->
+
+            <div class="review-text">
+
+                "{{ review.comment }}"
+
+            </div>
+
+            <!-- FOOTER -->
+
+            <div class="review-footer">
+
+                <div class="review-date">
+
+                    {{ review.created_at }}
+
+                </div>
+
+                <div class="coffee-icon">
+
+                    <i class="fa-solid fa-mug-hot"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <!-- EMPTY -->
+
+    <div class="empty-box">
+
+        <i class="fa-solid fa-comment-dots"></i>
+
+        <h2>
+
+            No Reviews Yet
+
+        </h2>
+
+        <p>
+
+            Customers reviews will appear here
+            after they share their experience.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

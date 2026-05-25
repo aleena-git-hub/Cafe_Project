@@ -1,0 +1,259 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(26,23,21,0.9), rgba(26,23,21,0.95)),
+            url("http://googleusercontent.com/image_collection/image_retrieval/6448759712959825561_0");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* MAIN WRAPPER */
+        .main_content {
+            margin-top: 110px;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* PROFILE CARD */
+        .profile-wrapper {
+            width: 100%;
+            max-width: 750px;
+            background: rgba(36, 32, 28, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-top: 1px solid rgba(194,148,106,0.4);
+            border-bottom: 1px solid rgba(194,148,106,0.4);
+            padding: 15px 0;
+        }
+
+        .page-header h1 {
+            color: white;
+            font-size: 28px;
+        }
+
+        /* AVATAR */
+        .profile-hero {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar-large {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(194,148,106,0.15);
+            border: 2px solid #c2946a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            margin: auto;
+        }
+
+        /* ACTION BUTTONS */
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            background: rgba(62, 30, 2, 0.9);
+            color: #fff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            border: 1px solid rgba(194,148,106,0.3);
+        }
+
+        .action-btn:hover {
+            background: #e6830b;
+            color: #2b1200;
+            transform: translateY(-3px);
+        }
+
+        /* GRID */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .profile-row {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            background: rgba(20,18,16,0.4);
+            border-radius: 12px;
+            align-items: center;
+        }
+
+        .profile-row.full {
+            grid-column: span 2;
+        }
+
+        .icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(194,148,106,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c2946a;
+        }
+
+        .label {
+            font-size: 11px;
+            color: #9c8f85;
+            text-transform: uppercase;
+        }
+
+        .value {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        em {
+            color: #aaa;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-row.full {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'u_nav.html' %}
+
+<div class="main_content">
+
+    <div class="profile-wrapper">
+
+        <div class="page-header">
+            <h1>My Profile</h1>
+        </div>
+
+        <!-- AVATAR -->
+        <div class="profile-hero">
+            <div class="avatar-large">
+                {{ request.user.username|slice:":1"|upper }}
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="profile-actions">
+
+            <a href="{% url 'my_orders' %}" class="action-btn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                My Orders
+            </a>
+
+            <a href="{% url 'my_bookings' %}" class="action-btn">
+                <i class="fa-solid fa-utensils"></i>
+                Table Bookings
+            </a>
+
+        </div>
+
+        <!-- PROFILE INFO -->
+        <div class="profile-grid">
+
+            <div class="profile-row">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div>
+                    <div class="label">Username</div>
+                    <div class="value">{{ request.user.username }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                    <div class="label">Email</div>
+                    <div class="value">{{ request.user.email }}</div>
+                </div>
+            </div>
+
+            <div class="profile-row">
+                <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                    <div class="label">Phone</div>
+                    <div class="value">
+                        {% if profile.phone %}
+                            {{ profile.phone }}
+                        {% else %}
+                            <em>Not provided</em>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-row full">
+                <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div>
+                    <div class="label">Address</div>
+                    <div class="value">
+                        {% if profile.address %}
+                            {{ profile.address }}
+                        {% else %}
+                            <em>No address available</em>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

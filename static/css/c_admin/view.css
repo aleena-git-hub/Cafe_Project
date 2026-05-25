@@ -1,0 +1,285 @@
+/* General Layout & Fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+ 
+     background-image: url("/static/photo/gallery5.jpg");
+     
+    font-family: 'Poppins', sans-serif;
+    color: #ad6161;
+    
+}
+
+/* Dark Overlay */
+body::after{
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.425);
+
+    z-index: -1;
+}
+.main_content {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(174, 172, 170, 0);
+}
+
+/* White Admin Panel Container */
+.admin_panel_container {
+    width: 100%;
+    max-width: 1300px;
+    background-color: #a4917e5d;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+/* Header Section Styling */
+.top_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.top_bar h1 {
+    color: #EDC4A0; /* Dark brown theme */
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.add_btn {
+    text-decoration: none;
+    background: #8b5e3c; /* Medium brown theme */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.add_btn:hover {
+    background: #5c3d2e;
+}
+
+/* Card Grid Layout */
+.card_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)); /* 2 columns on large screens */
+    gap: 25px;
+}
+
+/* Specific Card Styling */
+.menu_item_card {
+    background: #f7f4f2; /* Light cream/warm background for cards */
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #eae1d8;
+}
+
+.menu_item_card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+}
+
+.card_content {
+    display: grid;
+    grid-template-columns: 240px 1fr; /* Image takes fixed space, info takes rest */
+    gap: 20px;
+    align-items: start;
+}
+
+/* Product Image Section */
+.product_img_container {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.product_img_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Important to keep aspect ratio */
+}
+
+/* Item Details Section */
+.item_details {
+    display: flex;
+    flex-direction: column;
+    line-height: 3;
+}
+
+.title_price_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.product_name {
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+}
+
+.price_text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8b5e3c; /* Theme color */
+}
+
+.desc_text {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Meta info and ID badge */
+.meta_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cat_label {
+    font-size: 12px;
+    color: #888;
+}
+
+.cat_value {
+    color: #333;
+    font-weight: 500;
+}
+
+.id_badge {
+    background: #eae1d8;
+    color: #5c3d2e;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* Action Section with Buttons */
+.action_section {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.action_title {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.action_btns {
+    display: flex;
+    gap: 10px;
+}
+
+.edit_btn, .delete_btn {
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.edit_btn {
+    background: #399166; /* Clean green for Edit */
+    color: white;
+}
+
+.edit_btn:hover {
+    background: #2a6d4d;
+}
+
+.delete_btn {
+    background: #c74c4c; /* Clear red for Delete */
+    color: white;
+}
+
+.delete_btn:hover {
+    background: #a13d3d;
+}
+
+.empty_state {
+    text-align: center;
+    padding: 50px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .card_grid {
+        grid-template-columns: 1fr; /* Single column on tablets/phones */
+    }
+    .card_content {
+        grid-template-columns: 1fr; /* Image stacks above info on small screens */
+    }
+}
+
+/* Card Grid Layout - Set to exactly 2 items per row */
+.card_grid {
+    display: grid;
+    /* This creates exactly two equal columns */
+    grid-template-columns: 1fr 1fr; 
+    gap: 25px;
+    padding-top: 10px;
+}
+
+/* Responsive adjustment for tablets/mobile */
+@media (max-width: 1024px) {
+    .card_grid {
+        /* On smaller screens, stack them in 1 column */
+        grid-template-columns: 1fr; 
+    }
+}
+
+.header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+    z-index: 100;
+}
+.main_content1{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}

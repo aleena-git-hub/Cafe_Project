@@ -1,0 +1,714 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Outfit', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            overflow:hidden;
+
+            background:#120d08;
+
+            position:relative;
+        }
+
+        /* BACKGROUND */
+
+        .bg-image{
+            position:absolute;
+
+            width:100%;
+            height:100%;
+
+            background:
+            linear-gradient(rgba(10,10,10,0.75),
+            rgba(10,10,10,0.82)),
+            url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+
+            transform:scale(1.1);
+        }
+
+        /* GLOW */
+
+        .glow{
+            position:absolute;
+
+            width:500px;
+            height:500px;
+
+            background:#c47b3b;
+
+            border-radius:50%;
+
+            filter:blur(180px);
+
+            opacity:0.18;
+        }
+
+        .glow1{
+            top:-100px;
+            left:-100px;
+        }
+
+        .glow2{
+            bottom:-100px;
+            right:-100px;
+        }
+
+        /* MAIN CONTAINER */
+
+        .register-wrapper{
+            position:relative;
+
+            width:100%;
+            max-width:1100px;
+
+            min-height:680px;
+
+            display:flex;
+
+            border-radius:35px;
+
+            overflow:hidden;
+
+            background:rgba(255,255,255,0.06);
+
+            backdrop-filter:blur(18px);
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            box-shadow:0 20px 60px rgba(0,0,0,0.45);
+
+            z-index:10;
+        }
+
+        /* LEFT SIDE */
+
+        .left-side{
+            flex:1;
+
+            padding:70px 60px;
+
+            color:white;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+
+            position:relative;
+        }
+
+        .coffee-tag{
+            display:inline-block;
+
+            background:rgba(255,255,255,0.08);
+
+            padding:10px 18px;
+
+            border-radius:30px;
+
+            font-size:14px;
+
+            margin-bottom:28px;
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            width:max-content;
+        }
+
+        .left-side h1{
+            font-size:64px;
+
+            line-height:1.1;
+
+            margin-bottom:25px;
+
+            font-weight:700;
+        }
+
+        .left-side p{
+            color:#ddd;
+
+            line-height:1.9;
+
+            font-size:16px;
+
+            max-width:500px;
+        }
+
+        /* FEATURES */
+
+        .features{
+            margin-top:40px;
+
+            display:flex;
+            flex-direction:column;
+
+            gap:20px;
+        }
+
+        .feature{
+            display:flex;
+            align-items:center;
+
+            gap:18px;
+        }
+
+        .feature-icon{
+            width:55px;
+            height:55px;
+
+            border-radius:16px;
+
+            background:rgba(255,255,255,0.08);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:#d69b62;
+
+            font-size:20px;
+        }
+
+        .feature-text h3{
+            font-size:17px;
+
+            margin-bottom:4px;
+        }
+
+        .feature-text p{
+            font-size:14px;
+
+            color:#bdbdbd;
+        }
+
+        /* RIGHT SIDE */
+
+        .right-side{
+            width:430px;
+
+            background:white;
+
+            padding:55px 40px;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        /* LOGO */
+
+        .logo{
+            width:85px;
+            height:85px;
+
+            margin:auto;
+
+            border-radius:24px;
+
+            background:linear-gradient(
+            135deg,
+            #d28a45,
+            #8b5e34
+            );
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            color:white;
+
+            font-size:34px;
+
+            margin-bottom:28px;
+
+            box-shadow:0 15px 30px rgba(201,123,54,0.25);
+        }
+
+        .form-title{
+            text-align:center;
+
+            margin-bottom:35px;
+        }
+
+        .form-title h2{
+            font-size:34px;
+
+            color:#241814;
+
+            margin-bottom:10px;
+        }
+
+        .form-title p{
+            color:#7a6b63;
+
+            font-size:15px;
+        }
+
+        /* ERROR */
+
+        .error-box{
+            background:#ffe6e6;
+
+            color:#d32f2f;
+
+            padding:14px 16px;
+
+            border-radius:14px;
+
+            margin-bottom:20px;
+
+            font-size:14px;
+        }
+
+        /* FORM */
+
+        .form-group{
+            margin-bottom:22px;
+        }
+
+        .form-group label{
+            display:block;
+
+            margin-bottom:10px;
+
+            font-size:14px;
+
+            color:#5c4638;
+
+            font-weight:500;
+        }
+
+        .input-box{
+            position:relative;
+        }
+
+        .input-box i{
+            position:absolute;
+
+            top:50%;
+            left:18px;
+
+            transform:translateY(-50%);
+
+            color:#b66b2b;
+        }
+
+        .input-box input{
+            width:100%;
+
+            padding:18px 18px 18px 52px;
+
+            border:none;
+
+            border-radius:18px;
+
+            background:#f6f3ef;
+
+            font-size:15px;
+
+            outline:none;
+
+            transition:0.3s;
+        }
+
+        .input-box input:focus{
+            background:white;
+
+            box-shadow:0 0 0 4px rgba(201,123,54,0.10);
+        }
+
+        /* BUTTON */
+
+        .register-btn{
+            width:100%;
+
+            border:none;
+
+            padding:18px;
+
+            border-radius:18px;
+
+            background:linear-gradient(
+            135deg,
+            #d28a45,
+            #b66b2b
+            );
+
+            color:white;
+
+            font-size:16px;
+
+            font-weight:600;
+
+            cursor:pointer;
+
+            margin-top:10px;
+
+            transition:0.3s;
+        }
+
+        .register-btn:hover{
+            transform:translateY(-3px);
+
+            box-shadow:0 12px 24px rgba(201,123,54,0.35);
+        }
+
+        .register-btn i{
+            margin-right:10px;
+        }
+
+        /* LOGIN */
+
+        .bottom-text{
+            text-align:center;
+
+            margin-top:28px;
+
+            color:#7a6b63;
+        }
+
+        .bottom-text a{
+            color:#b66b2b;
+
+            text-decoration:none;
+
+            font-weight:600;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:950px){
+
+            .left-side{
+                display:none;
+            }
+
+            .register-wrapper{
+                max-width:470px;
+            }
+
+            .right-side{
+                width:100%;
+            }
+
+        }
+
+        @media(max-width:500px){
+
+            .right-side{
+                padding:45px 25px;
+            }
+
+            .form-title h2{
+                font-size:28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="bg-image"></div>
+
+<div class="glow glow1"></div>
+
+<div class="glow glow2"></div>
+
+<div class="register-wrapper">
+
+    <!-- LEFT -->
+
+    <div class="left-side">
+
+        <div class="coffee-tag">
+
+            ☕ Premium Cafe Experience
+
+        </div>
+
+        <h1>
+
+            Join The
+            Coffee Club
+
+        </h1>
+
+        <p>
+
+            Create your account and unlock
+            table reservations, online ordering,
+            rewards, reviews, and your own
+            personalized cafe experience.
+
+        </p>
+
+        <!-- FEATURES -->
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-mug-hot"></i>
+
+                </div>
+
+                <div class="feature-text">
+
+                    <h3>
+
+                        Fresh Coffee Everyday
+
+                    </h3>
+
+                    <p>
+
+                        Crafted with premium beans
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-utensils"></i>
+
+                </div>
+
+                <div class="feature-text">
+
+                    <h3>
+
+                        Easy Food Ordering
+
+                    </h3>
+
+                    <p>
+
+                        Delicious meals at your fingertips
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                </div>
+
+                <div class="feature-text">
+
+                    <h3>
+
+                        Instant Table Booking
+
+                    </h3>
+
+                    <p>
+
+                        Reserve your favorite seat anytime
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right-side">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-mug-saucer"></i>
+
+        </div>
+
+        <div class="form-title">
+
+            <h2>
+
+                Create Account
+
+            </h2>
+
+            <p>
+
+                Start your cozy cafe journey
+
+            </p>
+
+        </div>
+
+        {% if error %}
+
+        <div class="error-box">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Username
+
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input type="text"
+                           name="username"
+                           placeholder="Enter username"
+                           required>
+
+                </div>
+
+            </div>
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Email Address
+
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input type="email"
+                           name="email"
+                           placeholder="Enter email address"
+                           required>
+
+                </div>
+
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Password
+
+                </label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Create password"
+                           required>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <button type="submit"
+                    class="register-btn">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create My Account
+
+            </button>
+
+        </form>
+
+        <!-- LOGIN -->
+
+        <div class="bottom-text">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

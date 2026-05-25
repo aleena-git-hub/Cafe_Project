@@ -1,0 +1,427 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout</title>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+
+            background:
+            linear-gradient(rgba(17,12,8,0.88),
+            rgba(17, 12, 8, 0.489)),
+            url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+
+            padding:50px 20px;
+        }
+
+        /* MAIN CONTAINER */
+
+        .checkout-container{
+            width:100%;
+            max-width:1300px;
+
+            margin:auto;
+
+            display:grid;
+            grid-template-columns:1.3fr 0.8fr;
+
+            gap:35px;
+        }
+
+        /* GLASS CARD */
+
+        .glass-card{
+            background:rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(14px);
+
+            border-radius:30px;
+
+            padding:40px;
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            box-shadow:0 12px 35px rgba(0,0,0,0.4);
+        }
+
+        /* HEADINGS */
+
+        .glass-card h1{
+            color:#f7c08a;
+
+            margin-bottom:35px;
+
+            font-size:40px;
+        }
+
+        /* FORM GROUP */
+
+        .form-group{
+            margin-bottom:25px;
+        }
+
+        .form-group label{
+            display:block;
+
+            color:white;
+
+            margin-bottom:10px;
+
+            font-size:16px;
+            font-weight:500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select{
+            width:100%;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:15px;
+
+            outline:none;
+
+            background:rgba(255,255,255,0.12);
+
+            color:white;
+
+            font-size:15px;
+
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .form-group textarea{
+            resize:none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder{
+            color:#ddd;
+        }
+
+        .form-group select{
+            color:white;
+        }
+
+        .form-group option{
+            color:black;
+        }
+
+        /* ORDER ITEMS */
+
+        .order-item{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:18px 0;
+
+            border-bottom:1px solid rgba(255,255,255,0.08);
+
+            color:white;
+        }
+
+        .item-name{
+            font-size:16px;
+        }
+
+        .item-price{
+            color:#f7c08a;
+            font-weight:600;
+        }
+
+        /* TOTAL */
+
+        .total-box{
+            margin-top:30px;
+
+            padding-top:20px;
+
+            border-top:2px solid rgba(255,255,255,0.1);
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .total-box h2{
+            color:white;
+            font-size:30px;
+        }
+
+        .total-price{
+            color:#f7c08a;
+            font-weight:700;
+        }
+
+        /* BUTTON */
+
+        .place-btn{
+            width:100%;
+
+            margin-top:35px;
+
+            padding:18px;
+
+            border:none;
+
+            border-radius:18px;
+
+            background:#c97b36;
+
+            color:white;
+
+            font-size:18px;
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .place-btn:hover{
+            background:#a86024;
+
+            transform:translateY(-3px);
+        }
+
+        .place-btn i{
+            margin-right:8px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:950px){
+
+            .checkout-container{
+                grid-template-columns:1fr;
+            }
+
+            .glass-card{
+                padding:30px;
+            }
+
+            .glass-card h1{
+                font-size:32px;
+            }
+
+            .total-box h2{
+                font-size:24px;
+            }
+
+        }
+
+   
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="checkout-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="glass-card">
+
+            <h1>
+
+                <i class="fa-solid fa-truck"></i>
+                Delivery Details
+
+            </h1>
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       name="name"
+                       value="{{ request.user.username }}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Phone Number</label>
+
+                <input type="text"
+                       name="phone"
+                       value="{{ profile.phone }}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Delivery Address</label>
+
+                <textarea name="address"
+                          rows="5"
+                          required>{{ profile.address }}</textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Payment Method</label>
+
+                <select name="payment_method" required>
+
+                    <option value="" disabled selected>
+                        -- Select Payment Method --
+                    </option>
+
+                    <option value="Cash on Delivery">
+                        Cash on Delivery (COD)
+                    </option>
+
+                    <option value="UPI">
+                        UPI / Net Banking
+                    </option>
+
+                    <option value="Card">
+                        Credit / Debit Card
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="glass-card">
+
+            <h1>
+
+                <i class="fa-solid fa-receipt"></i>
+                Order Summary
+
+            </h1>
+
+            {% for item in cart_items %}
+
+            <div class="order-item">
+
+                <span class="item-name">
+
+                    {{ item.product.name }} × {{ item.quantity }}
+
+                </span>
+
+                <span class="item-price">
+
+                    ₹{{ item.total_price }}
+
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+            <!-- TOTAL -->
+
+            <div class="total-box">
+
+                <h2>
+
+                    Total
+
+                </h2>
+
+                <h2 class="total-price">
+
+                    ₹{{ total }}
+
+                </h2>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <button type="submit"
+                    class="place-btn">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                Place Order
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+
+</html>

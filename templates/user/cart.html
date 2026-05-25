@@ -1,0 +1,463 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/user/cart.css' %}">
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+                url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2070&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: white;
+    padding: 40px 20px;
+}
+
+.cart-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* HEADER TITLES */
+.cart-title-box {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.cart-title-box h1 {
+    font-size: 55px;
+    color: #f7c08a;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.cart-title-box p {
+    color: #ddd;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+/* REPLAY GRID SYSTEM LAYOUTS */
+.cart-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (min-width: 850px) {
+    .cart-layout-grid {
+        grid-template-columns: 1.6fr 1fr; /* Split view into asymmetrical layout desktop rows */
+    }
+}
+
+.cart-items-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* FROSTED GLASS EFFECT ELEMENT ITEMS CARD */
+.cafe-glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    transition: transform 0.25s, background-color 0.25s;
+}
+
+.cafe-glass-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Product Thumbnail Layout Frames */
+.item-img-frame {
+    width: 90px;
+    height: 90px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+.item-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Info Inner Core Layout contents */
+.item-info-body {
+    flex-grow: 1;
+}
+
+.item-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.item-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.item-unit-price {
+    font-size: 16px;
+    color: #ccc;
+    font-weight: 400;
+}
+
+/* Action Control Bars alignment styles */
+.item-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.cafe-qty-selector {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.qty-toggle-btn {
+    text-decoration: none;
+    color: #f7c08a;
+    font-weight: 700;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.qty-toggle-btn:hover {
+    color: white;
+}
+
+.qty-value-number {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.item-line-total {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f7c08a;
+}
+
+.total-label {
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 300;
+}
+
+.btn-item-remove {
+    text-decoration: none;
+    font-size: 13px;
+    color: #ef4444;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.btn-item-remove:hover {
+    opacity: 0.8;
+}
+
+/* SIDEBAR SUMMARY GLASS PANEL STYLES */
+.summary-glass-panel {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.summary-panel-title {
+    font-size: 20px;
+    color: #f7c08a;
+    font-weight: 600;
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(247, 192, 138, 0.15);
+    padding-bottom: 10px;
+}
+
+.summary-data-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #ddd;
+    margin-bottom: 12px;
+}
+
+.text-highlight {
+    font-weight: 500;
+    color: white;
+}
+
+.summary-accent-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 18px 0;
+}
+
+.grand-total-row {
+    align-items: center;
+    margin-bottom: 26px;
+}
+
+.grand-total-row span:first-child {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+.grand-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f7c08a;
+}
+
+/* CAFE ACCENT BUTTONS */
+.btn-cafe-checkout {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 12px;
+    background: #c97b36;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(201, 123, 54, 0.25);
+}
+
+.btn-cafe-checkout:hover {
+    background: #a85f21;
+    transform: translateY(-2px);
+}
+
+/* COZY EMPTY APPLICATION TRAYS DESIGN PLACEMENTS */
+.empty-tray-box {
+    text-align: center;
+    padding: 70px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px dashed rgba(255,255,255,0.15);
+    max-width: 440px;
+    margin: 40px auto;
+}
+
+.empty-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.empty-tray-box h2 {
+    font-size: 22px;
+    color: #f7c08a;
+    margin-bottom: 8px;
+}
+
+.empty-tray-box p {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 26px;
+}
+
+.btn-return-menu {
+    display: inline-block;
+    text-decoration: none;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 11px 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-return-menu:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Mobile responsive collapses */
+@media (max-width: 480px) {
+    .cart-title-box h1 { font-size: 38px; }
+    .cafe-glass-card { flex-direction: column; text-align: center; }
+    .item-title-row { flex-direction: column; gap: 4px; }
+    .item-actions-row { justify-content: center; }
+}
+
+    header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+    </style>
+
+</head>
+
+<body>
+         {% include 'u_nav.html' %}
+
+<div class="cart-wrapper">
+
+    <div class="cart-title-box">
+        <h1>My Cart</h1>
+        <p>Review your selection before finalizing your order tray.</p>
+    </div>
+
+    {% if cart_items %}
+    
+    <div class="cart-layout-grid">
+        
+        <div class="cart-items-column">
+            {% for item in cart_items %}
+            <div class="cafe-glass-card">
+                
+                <div class="item-img-frame">
+                    {% if item.product.photo %}
+                        <img src="{{ item.product.photo.url }}" alt="{{ item.product.name }}">
+                    {% else %}
+                        <div class="item-no-img">☕</div>
+                    {% endif %}
+                </div>
+
+                <div class="item-info-body">
+                    <div class="item-title-row">
+                        <h3 class="item-name">{{ item.product.name }}</h3>
+                        <p class="item-unit-price">₹{{ item.product.price }}</p>
+                    </div>
+
+                    <div class="item-actions-row">
+                        <div class="cafe-qty-selector">
+                            <a href="{% url 'decrease_quantity' item.id %}" class="qty-toggle-btn">−</a>
+                            <span class="qty-value-number">{{ item.quantity }}</span>
+                            <a href="{% url 'increase_quantity' item.id %}" class="qty-toggle-btn">+</a>
+                        </div>
+                        
+                        <div class="item-line-total">
+                            <span class="total-label">Total:</span> ₹{{ item.total_price }}
+                        </div>
+
+                        <a href="{% url 'remove_cart_item' item.id %}" class="btn-item-remove" title="Remove Item">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-summary-sidebar">
+            <div class="summary-glass-panel">
+                <h3 class="summary-panel-title">Order Summary</h3>
+                
+                <div class="summary-data-row">
+                    <span>Items Subtotal</span>
+                    <span class="text-highlight">₹{{ total }}</span>
+                </div>
+                <div class="summary-data-row">
+                    <span>Estimated Tax</span>
+                    <span class="text-highlight">₹0.00</span>
+                </div>
+                
+                <div class="summary-accent-divider"></div>
+                
+                <div class="summary-data-row grand-total-row">
+                    <span>Grand Total</span>
+                    <span class="grand-price">₹{{ total }}</span>
+                </div>
+
+                <a href="{% url 'checkout' %}" class="btn-cafe-checkout">
+                    Proceed To Checkout
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-tray-box">
+        <p class="empty-icon">☕</p>
+        <h2>Your order tray is empty</h2>
+        <p>Head back to our main menu to discover your next delicious treat.</p>
+        <a href="{% url 'menu' %}" class="btn-return-menu">Browse Menu</a>
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

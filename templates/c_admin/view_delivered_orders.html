@@ -1,0 +1,211 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivered Orders</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height: 100vh;
+            background:
+            linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+            url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            color: white;
+        }
+
+        .container{
+            width: 95%;
+            margin: auto;
+        }
+
+        .title{
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: #f5c16c;
+            letter-spacing: 2px;
+        }
+
+        .table-box{
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead{
+            background-color: rgba(245, 193, 108, 0.2);
+        }
+
+        th{
+            padding: 20px;
+            text-align: left;
+            color: #f5c16c;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        td{
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 16px;
+            color: #f1f1f1;
+        }
+
+        tr:hover{
+            background-color: rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .price{
+            color: #7CFC00;
+            font-weight: bold;
+        }
+
+        .payment{
+            background-color: rgba(255,255,255,0.1);
+            padding: 8px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .date{
+            color: #d6d6d6;
+            font-size: 14px;
+        }
+
+        @media(max-width: 768px){
+
+            body{
+                padding: 20px;
+            }
+
+            .title{
+                font-size: 28px;
+            }
+
+            table{
+                font-size: 14px;
+            }
+
+            th, td{
+                padding: 12px;
+            }
+
+        }
+.header{
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(20, 7, 1);
+
+    height: 90px;
+    width: 100%;
+
+    position: fixed;
+
+  
+}
+.main_content{
+    margin-top: 120px;
+
+    width: 100%;
+
+    display: flex;
+    
+
+    justify-content: center;
+
+    align-items: center;
+}
+    </style>
+
+</head>
+<body>
+    {% include 'nav.html' %}
+
+    <div class="container">
+
+        <h1 class="title">
+            Delivered Orders
+        </h1>
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Date</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+
+                    <tr>
+
+                        <td>#{{ order.id }}</td>
+
+                        <td>{{ order.customer_name }}</td>
+
+                        <td class="price">
+                            ₹ {{ order.total_amount }}
+                        </td>
+
+                        <td>
+                            <span class="payment">
+                                {{ order.payment_method }}
+                            </span>
+                        </td>
+
+                        <td class="date">
+                            {{ order.ordered_at }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

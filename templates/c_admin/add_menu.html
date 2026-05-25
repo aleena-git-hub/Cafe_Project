@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Menu Item</title>
+<link rel="stylesheet" href="{% static 'css/c_admin/form.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+       
+</head>
+<body>
+            {% include 'nav.html' %}
+
+    <div class="main_content">
+
+    <div class="form_container">
+
+        <h1>Add Menu Item</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <label>Product Name</label>
+            <input type="text" name="name" required>
+
+            <label>Price</label>
+            <input type="number" name="price" step="0.01" required>
+
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+
+            <label>Select Category</label>
+
+            <select name="category" required>
+
+                <option value="">-- Select Category --</option>
+
+                {% for i in categories %}
+
+                    <option value="{{ i.id }}">
+                        {{ i.name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label>Upload Image</label>
+            <input type="file" name="photo">
+
+            <button type="submit">
+                Add Product
+            </button>
+
+        </form>
+    </div>
+    </div>
+
+</body>
+</html>

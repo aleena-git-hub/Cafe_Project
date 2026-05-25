@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <link rel="stylesheet" href="{% static 'css/c_admin/form.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+     {% include 'nav.html' %}
+<div class="main_content">
+
+    <div class="form_container">
+    <h1>Edit Category</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Category Name:</label>
+        <input type="text" name="category" value="{{ cate.name }}" required>
+
+        <br><br>
+
+        <button type="submit">Update Category</button>
+    </form>
+
+    <br>
+
+    </div></div>
+</body>
+</html>

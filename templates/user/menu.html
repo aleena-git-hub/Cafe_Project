@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Menu</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/user/menu.css' %}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    {% include 'u_nav.html' %}
+
+    <!-- MAIN CONTAINER -->
+    <div class="menu-container">
+
+        <!-- HEADER -->
+        <div class="menu-header">
+
+            <h1 class="main-title">
+                ☕ Our Cafe Menu
+            </h1>
+
+            <p class="subtitle">
+                Freshly brewed coffee, delicious meals & handcrafted desserts
+            </p>
+
+        </div>
+
+        <!-- SEARCH FORM -->
+        <form method="GET" class="glass-form">
+
+            <input type="text"
+                   name="search"
+                   placeholder="Search food..."
+                   value="{{ request.GET.search }}"
+                   class="search-input">
+
+            <div class="select-wrapper">
+
+                <select name="category" class="category-select">
+
+                    <option value="">All Categories</option>
+
+                    {% for category in categories %}
+
+                    <option value="{{ category.id }}"
+                        {% if request.GET.category == category.id|stringformat:"s" %}
+                            selected
+                        {% endif %}>
+
+                        {{ category.name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Search
+
+            </button>
+
+        </form>
+
+        <!-- PRODUCTS -->
+        {% if products %}
+
+            {% for c in categories %}
+
+                <!-- CATEGORY SECTION -->
+                <div class="category-section">
+
+                    <!-- CATEGORY TITLE -->
+                    <h2 class="category-title">
+
+                        <span>{{ c.name }}</span>
+
+                        <span class="title-line"></span>
+
+                    </h2>
+
+                    <!-- PRODUCT GRID -->
+                    <div class="products-grid">
+
+                        {% for item in products %}
+
+                            {% if item.category.id == c.id %}
+
+                            <!-- CARD -->
+                            <div class="glass-card">
+
+                                <!-- IMAGE -->
+                                <div class="card-image-wrapper">
+
+                                    {% if item.photo %}
+
+                                        <img src="{{ item.photo.url }}"
+                                             alt="{{ item.name }}"
+                                             class="card-img">
+
+                                    {% else %}
+
+                                        <div class="no-image-placeholder">
+
+                                            ☕ No photo available
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+                                <!-- CARD BODY -->
+                                <div class="card-body">
+
+                                    <!-- HEADER -->
+                                    <div class="card-header-row">
+
+                                        <h3 class="product-name">
+
+                                            {{ item.name }}
+
+                                        </h3>
+
+                                        <div class="product-price">
+
+                                            ₹ {{ item.price }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- DESCRIPTION -->
+                                    <p class="product-description">
+
+                                        {{ item.description|truncatewords:15 }}
+
+                                    </p>
+
+                                    <!-- BUTTONS -->
+                                    <div class="card-actions">
+
+                                        <!-- DETAILS -->
+                                        <a href="{% url 'product_details' item.id %}"
+                                           class="btn-details">
+
+                                            <i class="fa-solid fa-eye"></i>
+                                            Details
+
+                                        </a>
+
+                                        <!-- ADD TO CART -->
+                                        <a href="{% url 'add_to_cart' item.id %}"
+                                           class="btn-cart">
+
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            Add To Cart
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+            <div class="empty-glass-state">
+
+                <p class="empty-icon">🍃</p>
+
+                <div class="empty-title">
+
+                    No Products Found
+
+                </div>
+
+                <p class="empty-text">
+
+                    Try checking your spelling or selecting another category filter.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
