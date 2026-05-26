@@ -461,35 +461,32 @@ def user_home(request):
 
 def menu(request):
 
-    categories = Category.objects.filter(product__isnull=False).distinct()
     products = Product.objects.all()
 
     # SEARCH
-
     search = request.GET.get('search')
 
     if search:
-
         products = products.filter(
             name__icontains=search
         )
 
     # CATEGORY FILTER
-
     category_id = request.GET.get('category')
 
     if category_id:
-
         products = products.filter(
             category_id=category_id
         )
 
+    # ONLY SHOW CATEGORIES THAT HAVE FILTERED PRODUCTS
+    categories = Category.objects.filter(
+        product__in=products
+    ).distinct()
+
     context = {
-
         'categories': categories,
-
         'products': products,
-
     }
 
     return render(
